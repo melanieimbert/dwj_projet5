@@ -1,0 +1,4 @@
+host : 'localhost'
+dbname : 'platform'
+userName : 'root'
+pass : ''
