@@ -47,13 +47,13 @@ class Router
             }
         }
 
-        throw new Exception('Pas de route itinéraire trouvé.');
+        throw new Exception('Uhmm... On dirait que cette page n\'existe pas : Pas de route itinéraire trouvé.');
     }
 
     public function url($name, $params = [])
     {
         if (!isset($this->namedRoutes[$name])) {
-            throw new Exception('Aucun chemin ne correspond à ce nom.');
+            throw new Exception('Uhmm... On dirait que cette page n\'existe pas : Aucun chemin ne correspond à ce nom.');
         }
 
         return $this->namedRoutes[$name]->getUrl($params);

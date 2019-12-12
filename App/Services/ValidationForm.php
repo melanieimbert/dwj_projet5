@@ -1,19 +1,19 @@
 <?php
 
-namespace Kernel\Application\Services;
+namespace Kernel\Services;
 
 class ValidationForm extends Validation
 {
-    public function pseudoPost($pseudoPost)
+    public function validationName($name)
     {
-        if (!empty($pseudoPost)) {
-            if ($this->stringValidation($pseudoPost)) {
+        if (!empty($name)) {
+            if ($this->stringValidation($name)) {
                 return true;
             }
         }
     }
 
-    public function mailPost($mailPost)
+    public function validationMail($mailPost)
     {
         if (!empty($mailPost)) {
             if ($this->emailValidation($mailPost)) {
@@ -22,38 +22,31 @@ class ValidationForm extends Validation
         }
     }
 
-    public function passPost($passPost)
+    public function samePassPost($passPost, $passPostConfirm)
     {
-        if (!empty($passPost)) {
-            if ($passPost === $_POST['password_confirm']) {
+        if (!empty($passPost) && !empty($passPostConfirm)) {
+            if ($passPost === $passPostConfirm) {
                 return true;
             }
         }
     }
 
-    public function verifToken($tokenPost)
+    public function inscriptionForm($firstname, $lastname, $mailPost, $passPost, $passPostConfirm)
     {
-        if (!empty($_SESSION['token']) and !empty($tokenPost)) {
-            if ($_SESSION['token'] === $tokenPost) {
-                unset($_SESSION['token']);
-
-                return true;
-            } else {
-                throw new Exception('Une erreur est survenue.');
-            }
-        }
-    }
-
-    public function inscriptionForm($pseudoPost, $mailPost, $passPost)
-    {
-        if (!$this->stringValidation($pseudoPost)) {
-            $msgFlash = 'Votre pseudo doit être composé de lettre et de chiffre et peut comporter des caractères spéciaux.';
-        } elseif (!$this->emailValidation($mailPost)) {
+        if (!$this->validationName($firstname)) {
+            $msgFlash = 'Votre nom doit être composé de lettre et peut comporter des caractères spéciaux.';
+            $firstname = false;
+        } elseif (!$this->validationName($lastname)) {
+            $msgFlash = 'Votre prénom doit être composé de lettre et peut comporter des caractères spéciaux.';
+            $lastname = false;
+        } elseif (!$this->validationEmail($mailPost)) {
             $msgFlash = 'Il y a un souci avec votre adresse e-mail, merci de vérifier le format de votre mail.';
-        } elseif (!$this->passPost($passPost)) {
+            $mail = false;
+        } elseif (!$this->samePassPost($passPost, $passPostConfirm)) {
             $msgFlash = 'Il y a un souci avec vos champs mot de passe : merci de vérifier que vos deux mots de passe sont identiques.';
-        } else {
-            $msgFlash = 'Bonjour, merci pour votre inscription.';
+            $pass = false;
+        } elseif (!$firstname && !$lastname && !$mail && !$pass) {
+            return true;
         }
         $_SESSION['msgFlash'] = $msgFlash;
     }

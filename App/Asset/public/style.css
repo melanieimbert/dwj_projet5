@@ -1,0 +1,36 @@
+/* Slider */
+#slidesShow {
+	max-height: 250px;
+	max-width: 600px; 
+}
+.fa-caret-left {
+	position: absolute;
+	margin-top: -20px;
+	top: 50%; 
+	left: 0px; 
+	font-size: 40px; 
+	color: rgb(0,123,255); 
+}
+.fa-caret-right {
+	position: absolute;
+	margin-top: -20px;
+	top: 50%; 
+	right: 0px; 
+	font-size: 40px; 
+	color: rgb(0,123,255);
+}
+.fa-play {
+	position: absolute;
+	margin-left: -20px;
+	bottom: 0px; 
+	left: 53%; 
+	font-size: 20px; 
+	color:  rgb(0,123,255);
+}
+.fa-pause {
+	position: absolute;
+	bottom: 0px; 
+	left: 47%; 
+	font-size: 20px; 
+	color:  rgb(0,123,255);
+}

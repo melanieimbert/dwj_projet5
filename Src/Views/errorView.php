@@ -1,13 +1,11 @@
-<div id="error">
-    <h2 class="exception">
-        <?php echo $error; ?>
-    </h2>
+<div class="text-center">
+    <div class="error mx-auto" data-text="404">404</div>
+    <p class="lead text-gray-800 mb-5"> <?php echo $error; ?> </p>
+    <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
     <?php
     if (!empty($_SERVER['HTTP_REFERER'])) {
         ?>
-        <p> 
-            <a id="previousPage" href="<?php echo $_SERVER['HTTP_REFERER']; ?>"> Retour à la page précédente</a>
-        </p>
+        <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>">&larr; Retour à la page précédente </a>
     <?php
-    } ?>
+    } ?> 
 </div>

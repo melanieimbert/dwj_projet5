@@ -5,8 +5,8 @@ namespace  Platform\Controllers;
 use Exception;
 use Kernel\Services\Mail;
 use Platform\Models\UsersModel;
+use Kernel\Services\ValidationForm;
 use Platform\Models\ContractsModel;
-use Kernel\Services\ManageUploadFiles;
 use Kernel\Application\AbstractController;
 
 class UsersController extends AbstractController
@@ -14,20 +14,21 @@ class UsersController extends AbstractController
     public function inscription()
     {
         $usersManager = new UsersModel();
-        $isConnected = $this->isConnected();
         $addUser = '';
         if (!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['password']) && !empty($_POST['email']) && !empty($_POST['validationKey'])) {
-            $addUser = $usersManager->addUser($_POST['firstname'], $_POST['lastname'], $_POST['password'], $_POST['email'], $_POST['validationKey']);
-            if ($addUser) {
-                $msgFlash = 'Votre inscription a été prise en compte, merci de valider votre adresse e-mail';
-                $mailManager = new Mail();
-                $mailManager->validationMail($_POST['email'], $_POST['validationKey']);
+            $verifForm = new ValidationForm();
+            if ($verifForm->inscriptionForm($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'], $_POST['password_confirm'])) {
+                $addUser = $usersManager->addUser($_POST['firstname'], $_POST['lastname'], $_POST['password'], $_POST['email'], $_POST['validationKey']);
+                if ($addUser) {
+                    $msgFlash = 'Votre inscription a été prise en compte, merci de valider votre adresse e-mail';
+                    $this->msgSession($msgFlash);
+                    $mailManager = new Mail();
+                    $mailManager->validationMail($_POST['email'], $_POST['validationKey']);
+                }
             }
-            $this->msgSession($msgFlash);
         }
         $this->useTemplate(__DIR__.'/../Views/inscriptionView.php', [
                 'title' => 'Inscription',
-                'isConnected' => $isConnected,
                 'addUser' => $addUser,
             ]);
     }
@@ -36,7 +37,7 @@ class UsersController extends AbstractController
     {
         $usersManager = new UsersModel();
         $contractsManage = new ContractsModel();
-        $manageUploadFile = new ManageUploadFiles();
+        $manageUpload = new ManageUpload();
         if (!empty($_GET['email']) && !empty($_GET['key'])) {
             $email = htmlspecialchars($_GET['email']);
             $userData = $usersManager->getUserByEmail($email);
@@ -44,7 +45,7 @@ class UsersController extends AbstractController
                 if ($userData['validation_key'] === $_GET['key']) {
                     $usersManager->emailValidation($email);
                     $contractsManage->openFolder($userData['id']);
-                    $manageUploadFile->openFolder($userData['firstname'], $userData['lastname']);
+                    $manageUpload->openFolder($userData['firstname'], $userData['lastname']);
                     $msgFlash = 'Votre adresse mail à bien été validée.';
                     $this->msgSession($msgFlash);
                     header('Location: afev/index.php?url=/connection');
@@ -58,7 +59,6 @@ class UsersController extends AbstractController
     public function connection()
     {
         $usersManager = new UsersModel();
-        $isConnected = $this->isConnected();
         $isAllowConnect = null;
         if (isset($_POST['email']) && isset($_POST['password'])) {
             $userData = $usersManager->getUserByEmail($_POST['email']);
@@ -68,7 +68,7 @@ class UsersController extends AbstractController
                     $msgFlash = 'Vous êtes maintenant connecté.';
                     $isAllowConnect = true;
                 } else {
-                    $msgFlash = 'Votre adresse e-mail n\' pas été validée.';
+                    $msgFlash = 'Votre adresse e-mail n\'a pas été validée.';
                 }
             } else {
                 $isAllowConnect = false;
@@ -78,7 +78,6 @@ class UsersController extends AbstractController
         }
         $this->useTemplate(__DIR__.'/../Views/connectionView.php', [
                 'title' => 'Connexion',
-                'isConnected' => $isConnected,
                 'isAllowConnect' => $isAllowConnect,
             ]);
     }

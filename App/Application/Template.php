@@ -3,8 +3,9 @@
 namespace Kernel\Application;
 
 use Exception;
+use Kernel\Services\ConnectInformations;
 
-class Template
+class Template extends ConnectInformations
 {
     public function render($path, $args)
     {
@@ -14,6 +15,9 @@ class Template
                 $message = $_SESSION['msgFlash'];
                 unset($_SESSION['msgFlash']);
             }
+            $isConnected = $this->isConnected();
+            $isUserConnected = $this->isUserConnected();
+            $isAdminConnected = $this->isAdminConnected();
             ob_start();
             require $path;
             $content = ob_get_clean();
