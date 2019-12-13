@@ -71,6 +71,8 @@
                             </li>
                         <?php
                     } ?>
+
+
                         <!-- Nav Item - Disconnection Collapse Menu -->
                         <li class="nav-item">
                             <a class="nav-link collapsed" href="index.php?url=/disconnection">
@@ -97,7 +99,6 @@
                         </li>
                     <?php
                 } ?>
-                
                 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
 
@@ -105,6 +106,13 @@
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
+    
+                <div id="weather" class="text-xs font-weight-bold mb-1 text-center d-none d-md-inline"> 
+                            <p id="weather_city_date"> </p>
+                            <img id="weather_icon"> </img>
+                            <p id="weather_condition"> </p>
+                            <p> Un temps parfait pour gérer son dossier, non ?! </p>
+                </div> 
             </ul>
             <!-- End of Sidebar -->
 
@@ -116,8 +124,9 @@
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> La plateforme pour gérer votre dossier administratif -  <?php echo $title; ?></div>
-                        </div>    
+                        </div>   
                     </nav>
+                   
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
