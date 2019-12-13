@@ -4,10 +4,12 @@ $(document).ready(() => {
     let emplacement= $('#slidesShow');
     new SlidesShow(images, 5000, emplacement);
 
-    const url = "https://www.prevision-meteo.ch/services/json/lat=46.259lng=5.235";
+    const url = "https://www.prevision-meteo.ch/services/json/lyon/lat=45.754lng=4.838";
     new Ajax(url, function(reponse) {
         
         weather = JSON.parse(reponse)
-        console.log(weather)
+        $('#weather_city_date').text(weather.city_info.name + " - " + weather.current_condition.date);
+        $('#weather_icon').attr('src', weather.current_condition.icon);
+        $('#weather_condition').text(weather.current_condition.condition + " - " + weather.current_condition.tmp + "°C");
     });
 });
