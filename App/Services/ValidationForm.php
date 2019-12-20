@@ -35,19 +35,20 @@ class ValidationForm extends Validation
     {
         if (!$this->validationName($firstname)) {
             $msgFlash = 'Votre nom doit être composé de lettre et peut comporter des caractères spéciaux.';
-            $firstname = false;
         } elseif (!$this->validationName($lastname)) {
             $msgFlash = 'Votre prénom doit être composé de lettre et peut comporter des caractères spéciaux.';
-            $lastname = false;
-        } elseif (!$this->validationEmail($mailPost)) {
+            $lastnameCorrect = false;
+        } elseif (!$this->validationMail($mailPost)) {
             $msgFlash = 'Il y a un souci avec votre adresse e-mail, merci de vérifier le format de votre mail.';
-            $mail = false;
+            $mailCorrect = false;
         } elseif (!$this->samePassPost($passPost, $passPostConfirm)) {
             $msgFlash = 'Il y a un souci avec vos champs mot de passe : merci de vérifier que vos deux mots de passe sont identiques.';
-            $pass = false;
-        } elseif (!$firstname && !$lastname && !$mail && !$pass) {
+            $passCorrect = false;
+        } else {
             return true;
         }
-        $_SESSION['msgFlash'] = $msgFlash;
+        if (isset($msgFlash)) {
+            $_SESSION['msgFlash'] = $msgFlash;
+        }
     }
 }

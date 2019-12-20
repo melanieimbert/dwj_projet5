@@ -7,7 +7,7 @@ use Kernel\Services\ConnectInformations;
 
 class Template extends ConnectInformations
 {
-    public function render($path, $args)
+    public function render($path, $args, $layout)
     {
         if (file_exists($path)) {
             extract($args);
@@ -21,7 +21,7 @@ class Template extends ConnectInformations
             ob_start();
             require $path;
             $content = ob_get_clean();
-            require 'Src/Views/mytemplate.php';
+            require $layout;
         } else {
             throw new Exception('Template Erreur');
         }

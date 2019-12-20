@@ -8,7 +8,7 @@ class HomeController extends AbstractController
 {
     public function showHomePage()
     {
-        $this->useTemplate(__DIR__.'/../Views/homeView.php', [
+        $this->useTemplate('../Src/Views/homeView.php', [
                 'title' => 'Accueil',
             ]);
     }

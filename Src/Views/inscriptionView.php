@@ -44,7 +44,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="login.html"> Vous avez déjà un compte ? Connectez-vous ! </a>
+                            <a class="small" href="index.php?url=/connection"> Vous avez déjà un compte ? Connectez-vous ! </a>
                         </div>
                     <?php
                     } ?>

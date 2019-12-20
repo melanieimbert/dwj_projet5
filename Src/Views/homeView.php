@@ -19,11 +19,11 @@
             </div>
             <div class="card-body">
                 <div class="text-center"> 
-                    <img id="slidesShow" src="App/Asset/images/slider1.jpg" alt="fonctionnement_site">
-                    <i class="fas fa-caret-left" id="fleche_gauche"></i>
-                    <i class="fas fa-caret-right" id="fleche_droite"></i>
-                    <i class="fas fa-play" id="bouton_play"></i>
-                    <i class="fas fa-pause" id="bouton_pause"></i>        
+                    <img id="slidesShow" src="Asset/images/slider1.jpg" alt="fonctionnement_site">
+                    <i class="fa fa-caret-left" id="fleche_gauche"></i>
+                    <i class="fa fa-caret-right" id="fleche_droite"></i>
+                    <i class="fa fa-play" id="bouton_play"></i>
+                    <i class="fa fa-pause" id="bouton_pause"></i>        
                 </div>
                 </br>
                 <p> Pour tout renseignement concernant les pièces justificatives, vous pouvez joindre ***** au 00.00.00.00.00. </p>

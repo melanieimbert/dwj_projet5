@@ -26,11 +26,14 @@ class ContractsModel extends AbstractModel
         return $fillsData;
     }
 
-    public function openFolder($id_user)
+    public function openFolderDb($id_user, $folder_name)
     {
         $bdd = $this->datasConnect();
-        $reqFolder = $bdd->prepare('INSERT INTO contracts(id_user) VALUES(:id_user)');
-        $reqFolder->execute(array('id_user' => $id_user));
+        $reqFolder = $bdd->prepare('INSERT INTO contracts(id_user, folder_name) VALUES(:id_user, :folder_name)');
+        $reqFolder->execute(array(
+            'id_user' => $id_user,
+            'folder_name' => $folder_name,
+        ));
 
         return $reqFolder;
     }

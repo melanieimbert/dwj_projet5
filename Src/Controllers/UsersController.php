@@ -5,6 +5,7 @@ namespace  Platform\Controllers;
 use Exception;
 use Kernel\Services\Mail;
 use Platform\Models\UsersModel;
+use Kernel\Services\ManageUpload;
 use Kernel\Services\ValidationForm;
 use Platform\Models\ContractsModel;
 use Kernel\Application\AbstractController;
@@ -17,6 +18,7 @@ class UsersController extends AbstractController
         $addUser = '';
         if (!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['password']) && !empty($_POST['email']) && !empty($_POST['validationKey'])) {
             $verifForm = new ValidationForm();
+            var_dump($verifForm->inscriptionForm($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'], $_POST['password_confirm']));
             if ($verifForm->inscriptionForm($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'], $_POST['password_confirm'])) {
                 $addUser = $usersManager->addUser($_POST['firstname'], $_POST['lastname'], $_POST['password'], $_POST['email'], $_POST['validationKey']);
                 if ($addUser) {
@@ -24,13 +26,15 @@ class UsersController extends AbstractController
                     $this->msgSession($msgFlash);
                     $mailManager = new Mail();
                     $mailManager->validationMail($_POST['email'], $_POST['validationKey']);
+                } else {
+                    throw new Exception();
                 }
             }
         }
-        $this->useTemplate(__DIR__.'/../Views/inscriptionView.php', [
+        $this->useTemplate('../Src/Views/inscriptionView.php', [
                 'title' => 'Inscription',
                 'addUser' => $addUser,
-            ]);
+        ], $layout = "../Src/Views/Layouts/conn_layout.php");
     }
 
     public function emailValidation()
@@ -44,11 +48,12 @@ class UsersController extends AbstractController
             if ($userData) {
                 if ($userData['validation_key'] === $_GET['key']) {
                     $usersManager->emailValidation($email);
-                    $contractsManage->openFolder($userData['id']);
-                    $manageUpload->openFolder($userData['firstname'], $userData['lastname']);
+                    $folder_name = $userData['firstname'].'_'.uniqid();
+                    $contractsManage->openFolderDb($userData['id'], $folder_name);
+                    $manageUpload->openFolder($folder_name);
                     $msgFlash = 'Votre adresse mail à bien été validée.';
                     $this->msgSession($msgFlash);
-                    header('Location: afev/index.php?url=/connection');
+                    header('Location: index.php?url=/connection');
                 }
             } else {
                 throw new Exception('L\'utilisateur ou la clef de vérification n\'existe pas.');
@@ -67,6 +72,7 @@ class UsersController extends AbstractController
                     $_SESSION['id'] = $userData['id'];
                     $msgFlash = 'Vous êtes maintenant connecté.';
                     $isAllowConnect = true;
+                    header('Location: index.php?url=/');
                 } else {
                     $msgFlash = 'Votre adresse e-mail n\'a pas été validée.';
                 }
@@ -76,9 +82,9 @@ class UsersController extends AbstractController
             }
             $this->msgSession($msgFlash);
         }
-        $this->useTemplate(__DIR__.'/../Views/connectionView.php', [
+        $this->useTemplate('../Src/Views/connectionView.php', [
                 'title' => 'Connexion',
                 'isAllowConnect' => $isAllowConnect,
-            ]);
+        ], $layout = "../Src/Views/Layouts/conn_layout.php");
     }
 }

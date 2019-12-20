@@ -2,8 +2,8 @@
 
 namespace  Platform\Controllers;
 
+use Exception;
 use Kernel\Services\Folders;
-use Kernel\Services\Pagination;
 use Kernel\Services\ManageUpload;
 use Platform\Models\ContractsModel;
 use Kernel\Services\ConnectInformations;
@@ -14,12 +14,12 @@ class AdminController extends AbstractController
     public function showAdminPage()
     {
         $connectInformation = new ConnectInformations();
-        if($connectInformation->isAdminConnected()) {
+        if ($connectInformation->isAdminConnected()) {
             $contractsModel = new ContractsModel();
             $allContractsInfos = $contractsModel->getAllContractsInfos();
             $folders = new Folders();
             $files_list = ['id_card' => 'carte d\'identité', 'vital_card' => 'carte vitale', 'medical_certif' => 'certificat médical', 'cv' => 'curriculum vitae', 'criminal_rec' => 'extrait de casier judisciaure - bulletin n°3'];
-            $this->useTemplate(__DIR__.'/../Views//adminView.php', [
+            $this->useTemplate('../Src/Views/adminView.php', [
                 'title' => 'Page administrateur',
                 'allContractsInfos' => $allContractsInfos,
                 'folders' => $folders,
@@ -28,13 +28,12 @@ class AdminController extends AbstractController
         } else {
             throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
         }
-        
     }
 
     public function approveFile()
     {
         $connectInformation = new ConnectInformations();
-        if($connectInformation->isAdminConnected()) {
+        if ($connectInformation->isAdminConnected()) {
             $contractsModel = new ContractsModel();
             $approveFile = $contractsModel->approveFill($_GET['fileName'], $_GET['id_user']);
             if ($approveFile) {
@@ -45,14 +44,14 @@ class AdminController extends AbstractController
             $this->msgSession($msgFlash);
             header('Location: index.php?url=/admin');
         } else {
-            throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.'); 
+            throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
         }
     }
 
     public function desapproveFile()
     {
         $connectInformation = new ConnectInformations();
-        if($connectInformation->isAdminConnected()) {
+        if ($connectInformation->isAdminConnected()) {
             $contractsModel = new ContractsModel();
             $desapproveFile = $contractsModel->desapproveFill($_GET['fileName'], $_GET['id_user']);
             if ($desapproveFile) {
@@ -63,31 +62,32 @@ class AdminController extends AbstractController
             $this->msgSession($msgFlash);
             header('Location: index.php?url=/admin');
         } else {
-            throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.'); 
+            throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
         }
     }
 
-    public function changeDatesContract() {
+    public function changeDatesContract()
+    {
         $connectInformation = new ConnectInformations();
-        if($connectInformation->isAdminConnected()) {
+        if ($connectInformation->isAdminConnected()) {
             $contractModel = new ContractsModel();
             $contractModel->changeDatesInfos($_POST['date_start'], $_POST['date_end'], $_SESSION['id']);
             $msgFlash = 'Les dates de contrat ont bien été modifiées.';
             $this->msgSession($msgFlash);
             header('Location: index.php?url=/admin');
         } else {
-            throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.'); 
+            throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
         }
     }
 
-    public function downloadFolder(){
+    public function downloadFolder()
+    {
         $connectInformation = new ConnectInformations();
-        if($connectInformation->isAdminConnected()) {
-            $manageUpload= new ManageUpload();
-            $folderName = $_GET['firstname']."_".$_GET['lastname'];
-            $manageUpload->downloadZipFolder($folderName);
+        if ($connectInformation->isAdminConnected()) {
+            $manageUpload = new ManageUpload();
+            $manageUpload->downloadZipFolder($_GET['folderName']);
         } else {
-            throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.'); 
+            throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
         }
     }
 }

@@ -37,7 +37,7 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="index.php?url=/inscription"> Créer un compte !</a>
+                                <a class="small" href="index.php?url=/inscription"> Pas encore inscrit ? Créer un compte !</a>
                             </div>
                             <?php
                             } ?>

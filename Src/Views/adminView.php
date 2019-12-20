@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table id="fill_moderate" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Nom - Prénom </th>
@@ -14,7 +14,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
                         <?php
                         foreach ($allContractsInfos as $contractsInformation) {
                             foreach ($files_list as $fill => $fillFr) {
@@ -25,12 +24,34 @@
                                             <?php echo htmlspecialchars($contractsInformation['firstname']); ?> <?php echo htmlspecialchars($contractsInformation['lastname']); ?>
                                         </td>
                                         <td> 
-                                            <?php echo $fillFr; ?> </br> 
-                                            <a href="<?php echo $contractsInformation[$fill]; ?>"  target="_blank"> Voir le document </a>
+                                            <h5> <?php echo $fillFr; ?> </h5></br> 
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                                                Voir le document
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel"> <?php echo $fillFr; ?>  </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <img src="<?php echo $contractsInformation[$fill]; ?>" alt="<?php echo $contractsInformation[$fill]; ?>">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Fermer </button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>
                                         </td>
                                         <td>
-                                            <a href="http://localhost/Afev/approveFile?fileName=<?php echo $fill; ?>&id_user=<?php echo $contractsInformation['id_user']; ?>"> <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Approuver </a> </br>
-                                            <a href="http://localhost/Afev/desapproveFile?fileName=<?php echo $fill; ?>&id_user=<?php echo $contractsInformation['id_user']; ?>"> <i class="fa fa-trash-o" aria-hidden="true"></i> Désaprouver </a>
+                                            <a href="http://localhost/Afev/index.php?url=/approveFile&fileName=<?php echo $fill; ?>&id_user=<?php echo $contractsInformation['id_user']; ?>"> <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Approuver </a> </br>
+                                            <a href="http://localhost/Afev/index.php?url=/desapproveFile&fileName=<?php echo $fill; ?>&id_user=<?php echo $contractsInformation['id_user']; ?>"> <i class="fa fa-trash-o" aria-hidden="true"></i> Désaprouver </a>
                                         </td>
                                     </tr>
                             <?php
@@ -38,7 +59,6 @@
                             }
                         }
                         ?>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -52,7 +72,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table id="folders_state" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Nom - Prénom </th>
@@ -61,14 +81,6 @@
                         <th> Pièces manquantes </th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>Nom - Prénom </th>
-                        <th>Dates du contrat </th>
-                        <th> Etat du dossier </th>
-                        <th> Pièces manquantes </th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     <?php
                     foreach ($allContractsInfos as $contractsInformation) {
@@ -91,7 +103,7 @@
                                 if ($folders->folderComplete($contractsInformation['id_user']) == true) {
                                     ?>    
                                     <p> Complet </p>
-                                    <a href="http://localhost/Afev/downloadFolder?firstname=<?php echo htmlspecialchars($contractsInformation['firstname']); ?>&lastname=<?php echo htmlspecialchars($contractsInformation['lastname']); ?>"> 
+                                    <a href="index.php?url=/downloadFolder&folderName=<?php echo htmlspecialchars($contractsInformation['folder_name']); ?>"> 
                                         Télécharger le dossier
                                     </a>
                                 <?php
@@ -113,6 +125,14 @@
                     <?php
                     } ?>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Nom - Prénom </th>
+                        <th>Dates du contrat </th>
+                        <th> Etat du dossier </th>
+                        <th> Pièces manquantes </th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>

@@ -22,7 +22,7 @@ class Mail
             <body>
                 <div>
                     <p> Merci pour votre inscription sur asso.com ! </p>
-                    <a href="http://127.0.0.1/Afev/confirmEmail?email='.$email_recipient.'&key='.$validation_key.'"> Confirmez votre adresse e-mail </a>
+                    <a href="http://127.0.0.1/Afev/index.php?url=/confirmEmail&email='.$email_recipient.'&key='.$validation_key.'"> Confirmez votre adresse e-mail </a>
                 </div>
             </body>
         </html>

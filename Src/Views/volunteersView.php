@@ -6,12 +6,12 @@
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> Bienvenue </div>
               <div class="h10 mb-0  text-gray-800"> 
-                <p> Bonjour  <?php  echo htmlspecialchars($user['firstname']);  ?>  <?php echo htmlspecialchars($user['lastname']); ?> , </p>
-                <p> <?php  echo htmlspecialchars($user['email']);  ?> </p>
+                <p> Bonjour  <?php  echo htmlspecialchars($user['firstname']); ?>  <?php echo htmlspecialchars($user['lastname']); ?> , </p>
+                <p> <?php  echo htmlspecialchars($user['email']); ?> </p>
             </div>
             </div>
           <div class="col-auto">
-            <i class="fas fa-comments fa-2x text-gray-300"></i>
+            <i class="fa fa-comments fa-2x text-gray-300"></i>
           </div>
         </div>
       </div>
@@ -24,16 +24,16 @@
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> Mon dossier </div>
             <div class="h10 mb-0 text-gray-800"> 
-              <?php if($folderComplete) { 
-                  echo 'Votre dossier est complet depuis le ' . $contractsInfos['last_modif_dateFr'] . '. </br>
+              <?php if ($folderComplete) {
+    echo 'Votre dossier est complet depuis le '.$contractsInfos['last_modif_dateFr'].'. </br>
                         Si vous n\'avez pas de nouvelles de la part de l\'association, n\'hésitez pas à appeler le standart';
-              } else {
-                echo 'Dossier incomplet'; 
-              } ?> 
+} else {
+    echo 'Dossier incomplet';
+} ?> 
             </div>
           </div>
           <div class="col-auto">
-            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+            <i class="fa fa-calendar fa-2x text-gray-300"></i>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@
             </div>
           </div>
             <div class="col-auto">
-                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                <i class="fa fa-clipboard-list fa-2x text-gray-300"></i>
             </div>
         </div>
      </div> 
