@@ -4,6 +4,7 @@ namespace  Platform\Controllers;
 
 use Exception;
 use Kernel\Services\Folders;
+use Platform\Models\UsersModel;
 use Kernel\Services\ManageUpload;
 use Platform\Models\ContractsModel;
 use Kernel\Services\ConnectInformations;
@@ -38,10 +39,12 @@ class AdminController extends AbstractController
             $approveFile = $contractsModel->approveFill($_GET['fileName'], $_GET['id_user']);
             if ($approveFile) {
                 $msgFlash = 'Le fichier a bien été approuvé.';
+                $type = 'alert alert-success';
             } else {
                 $msgFlash = "Erreur : le fichier n'a pas pu être approuvé, ré-essayez ultérieurement.";
+                $type = 'alert alert-danger';
             }
-            $this->msgSession($msgFlash);
+            $this->msgSession($msgFlash, $type);
             header('Location: index.php?url=/admin');
         } else {
             throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
@@ -54,12 +57,15 @@ class AdminController extends AbstractController
         if ($connectInformation->isAdminConnected()) {
             $contractsModel = new ContractsModel();
             $desapproveFile = $contractsModel->desapproveFill($_GET['fileName'], $_GET['id_user']);
+            unlink($_GET['fileLocation']);
             if ($desapproveFile) {
                 $msgFlash = 'Le fichier a bien été refusé.';
+                $type = 'alert alert-success';
             } else {
                 $msgFlash = "Erreur : le fichier n'a pas pu être desapprouvé, ré-essayez ultérieurement.";
+                $type = 'alert alert-danger';
             }
-            $this->msgSession($msgFlash);
+            $this->msgSession($msgFlash, $type);
             header('Location: index.php?url=/admin');
         } else {
             throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
@@ -73,7 +79,8 @@ class AdminController extends AbstractController
             $contractModel = new ContractsModel();
             $contractModel->changeDatesInfos($_POST['date_start'], $_POST['date_end'], $_SESSION['id']);
             $msgFlash = 'Les dates de contrat ont bien été modifiées.';
-            $this->msgSession($msgFlash);
+            $type = 'alert alert-success';
+            $this->msgSession($msgFlash, $type);
             header('Location: index.php?url=/admin');
         } else {
             throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
@@ -86,6 +93,32 @@ class AdminController extends AbstractController
         if ($connectInformation->isAdminConnected()) {
             $manageUpload = new ManageUpload();
             $manageUpload->downloadZipFolder($_GET['folderName']);
+            $folder_location_delete = '../files_temp/dossier_volontaire.zip';
+            unlink($folder_location_delete);
+        } else {
+            throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
+        }
+    }
+
+    public function anonymizeUser()
+    {
+        $connectInformation = new ConnectInformations();
+        if ($connectInformation->isAdminConnected()) {
+            $folder_location_delete = 'volunteers_files/'.$_POST['folder_name'];
+            $manageUpload = new ManageUpload();
+            $deleteFolder = $manageUpload->deleteFolder($folder_location_delete);
+            $id_user = $_POST['user_id'];
+            $usersModel = new UsersModel();
+            $anonymizeBdd = $usersModel->anonymizeUser($id_user);
+            if ($deleteFolder && $anonymizeBdd) {
+                $msgFlash = 'Le contact a bien été anonymisé dans la base de données et ses fichiers ont été supprimés.';
+                $type = 'alert alert-success';
+            } else {
+                $msgFlash = 'Une erreur est survenue, merci de prévenir le service client.';
+                $type = 'alert alert-danger';
+            }
+            $this->msgSession($msgFlash, $type);
+            header('Location: index.php?url=/admin');
         } else {
             throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
         }

@@ -39,6 +39,14 @@
                                     <input type="password" class="form-control form-control-user" name="password_confirm" id="password_confirm" placeholder="Confirmez votre mot de passe">
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <div class="custom-control custom-checkbox small">
+                                    <input type="checkbox" checked="checked" name="gdpr" value="true">  
+                                    <label for="gdpr"> 
+                                        J'accepte la <a href="index.php?url=/gdpr"> politique de confidentialité et de protection des données personnelles </a>.</br> 
+                                    </label>
+                                </div>
+                            </div>
                             <input type="hidden" name="validationKey" id="validationKey" value="<?php echo $validationKey; ?>" />
                             <input type="submit" class="btn btn-primary btn-user btn-block" value="Inscription" /> 
                         </form>

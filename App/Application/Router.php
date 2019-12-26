@@ -47,7 +47,7 @@ class Router
             }
         }
 
-        throw new Exception('Uhmm... On dirait que cette page n\'existe pas : Pas de route itinéraire trouvé.');
+        throw new Exception('Uhmm... On dirait que cette page n\'existe pas : Aucun itinéraire trouvé.');
     }
 
     public function url($name, $params = [])

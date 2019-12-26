@@ -18,12 +18,17 @@
                 <h6 class="m-0 font-weight-bold text-primary">  Fonctionnement du site </h6>
             </div>
             <div class="card-body">
-                <div class="text-center"> 
+                <div class="text-center" id="slider"> 
                     <img id="slidesShow" src="Asset/images/slider1.jpg" alt="fonctionnement_site">
                     <i class="fa fa-caret-left" id="fleche_gauche"></i>
                     <i class="fa fa-caret-right" id="fleche_droite"></i>
                     <i class="fa fa-play" id="bouton_play"></i>
                     <i class="fa fa-pause" id="bouton_pause"></i>        
+                </div>
+                <div id="explain_without_slider">
+                    <p> Bonjour et bienvenue sur ce site de gestion de votre dossier administrative en ligne.</p>
+                    <p> Après vous être inscrit et avoir validé votre adresse e-mail, vous pourrez accéder à votre espace "Dossier administratif".</p>
+                    <p> Vous pourrez alors consulter l'état de votre dossier et de vos pièces administratives. </p>
                 </div>
                 </br>
                 <p> Pour tout renseignement concernant les pièces justificatives, vous pouvez joindre ***** au 00.00.00.00.00. </p>

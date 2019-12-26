@@ -4,7 +4,7 @@ namespace Kernel\Application;
 
 abstract class AbstractController
 {
-    protected function useTemplate($path, $args, $layout="../Src/Views/Layouts/layout.php")
+    protected function useTemplate($path, $args, $layout = '../Src/Views/Layouts/layout.php')
     {
         $template = new Template();
         $template->render($path, $args, $layout);
@@ -12,8 +12,9 @@ abstract class AbstractController
         return $template;
     }
 
-    protected function msgSession($msgFlash)
+    protected function msgSession($msgFlash, $type = 'alert alert-info')
     {
         $_SESSION['msgFlash'] = $msgFlash;
+        $_SESSION['typeMsg'] = $type;
     }
 }

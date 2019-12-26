@@ -13,7 +13,13 @@ class Template extends ConnectInformations
             extract($args);
             if (isset($_SESSION['msgFlash'])) {
                 $message = $_SESSION['msgFlash'];
+                if (isset($_SESSION['typeMsg'])) {
+                    $type = $_SESSION['typeMsg'];
+                } else {
+                    $type = 'alert alert-info';
+                }
                 unset($_SESSION['msgFlash']);
+                unset($_SESSION['typeMsg']);
             }
             $isConnected = $this->isConnected();
             $isUserConnected = $this->isUserConnected();

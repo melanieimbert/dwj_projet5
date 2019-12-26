@@ -43,20 +43,22 @@ class VolunteersController extends AbstractController
             $nameFile = $_POST['nameFile'];
             $file = $_FILES[$nameFile];
             $file_ext = strtolower(substr($file['name'], -3)); // récupération extension du fichier
-            $allow_ext = array('pdf', 'jpg', 'png');
+            $allow_ext = array('jpg', 'png');
             if (in_array($file_ext, $allow_ext)) {
                 $contractModel = new ContractsModel();
                 $contractData = $contractModel->getFillsInfos($_SESSION['id']);
-                $newNameFile = uniqid();
-                $fileLink = '../volunteers_files/'.$contractData['folder_name'].'/'.$newNameFile.'.'.$file_ext;
+                $newNameFile = random_bytes(5);
+                $fileLink = 'volunteers_files/'.$contractData['folder_name'].'/'.bin2hex($newNameFile).'.'.$file_ext;
                 move_uploaded_file($file['tmp_name'], $fileLink);
                 $msgFlash = 'Votre fichier à été télécharger.';
+                $type = 'alert alert-success';
                 $contractModel = new ContractsModel();
                 $contractModel->fileUpload($_SESSION['id'], $nameFile, $fileLink);
             } else {
-                $msgFlash = 'Extension non autorisée : merci de télécharger un fichier pdf, jpeg ou png';
+                $msgFlash = 'Extension non autorisée : merci de télécharger un fichier jpeg ou png';
+                $type = 'alert alert-danger';
             }
-            $this->msgSession($msgFlash);
+            $this->msgSession($msgFlash, $type);
             header('Location: index.php?url=/volunteer');
         } else {
             throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
@@ -70,7 +72,8 @@ class VolunteersController extends AbstractController
             $contractModel = new ContractsModel();
             $contractModel->changeDatesInfos($_POST['date_start'], $_POST['date_end'], $_SESSION['id']);
             $msgFlash = 'Vos dates de contrat ont bien été ajoutées.';
-            $this->msgSession($msgFlash);
+            $type = 'alert alert-success';
+            $this->msgSession($msgFlash, $type);
             header('Location: index.php?url=/volunteer');
         } else {
             throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');

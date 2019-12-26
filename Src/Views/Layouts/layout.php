@@ -6,22 +6,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  
-        <!-- CDN plugin dataTables and option -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+        <title> Ma platforme en ligne - dossier administratif  - <?php echo $title; ?>   </title>
         <!-- Own web style -->
         <link rel="stylesheet" href="Asset/css/style.css"/>
-
-        <!-- Custom styles for sb template-->
-        <link href="Asset/sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
+        <!-- Favicon du site -->
+        <link rel="shortcut icon" type="image/png" href="Asset/images/favicon_folder.ico"/>
+        <!-- CDN plugin dataTables and option -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
         <!-- Custom fonts for sb template-->
         <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-        <title> Ma platforme en ligne - dossier administratif - <?php echo $title; ?>  </title>
+        <!-- Custom styles for sb template-->
+        <link  href="Asset/sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
     </head>   
  
-    <body >
+    <body id="page-top">
         <!-- Page Wrapper -->
         <div id="wrapper">
 
@@ -39,7 +38,7 @@
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
                     <a class="nav-link" href="index.php?url=/">
-                    <i class="fa fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Menu</span></a>
                 </li>
                 <!-- Divider -->
@@ -137,37 +136,29 @@
                     <div class="d-sm-flex align-items-center justify-content-center mb-4">
                         <h1 class="h2 mb-2 text-gray-800"> <?php echo  $title; ?> </h1>
                     </div>
-            
+
+                    <div class="container-fluid">
                     <?php
                     if (isset($message) && !is_null($message)) {
                         ?>
                         <div class="row justify-content-center">
                             <div class="col-12">
-                                <div class="alert alert-info">
+                                <div class="<?php echo $type; ?>">
                                     <?php echo $message; ?>
                                 </div>
                             </div>
                         </div> 
                     <?php
-                    }?>    
-                    <div class="container-fluid">
+                    }?> 
                         <?php echo $content; ?>
                     </div>
                 </div>
             </div>
         </div>
 
-        
-        
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <!-- CDN plugin dataTables and option -->
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-        <!-- own js script -->
-        <script src="Asset/js/classes/Ajax.js"></script>
-        <script src="Asset/js/classes/SlidesShow.js"></script>
-        <script src="Asset/js/main.js"></script>
         <!-- CDN pour utiliser fontawesome -->
         <script src="https://use.fontawesome.com/4eb7a9de94.js"></script>
         <!-- Bootstrap core JavaScript-->
@@ -175,6 +166,12 @@
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- Core plugin JavaScript-->
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- CDN plugin dataTables and option -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <!-- own js script -->
+        <script src="Asset/js/classes/Ajax.js"></script>
+        <script src="Asset/js/classes/SlidesShow.js"></script>
+        <script src="Asset/js/main.js"></script>
         <!-- Custom scripts for all pages-->
         <script src="Asset/sb-admin-2/js/sb-admin-2.min.js"></script>
         <!-- Page level plugins -->

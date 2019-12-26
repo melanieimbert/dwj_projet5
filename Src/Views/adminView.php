@@ -23,7 +23,7 @@
                                         <td> 
                                             <?php echo htmlspecialchars($contractsInformation['firstname']); ?> <?php echo htmlspecialchars($contractsInformation['lastname']); ?>
                                         </td>
-                                        <td> 
+                                        <td>
                                             <h5> <?php echo $fillFr; ?> </h5></br> 
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
@@ -39,8 +39,8 @@
                                                     <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">
-                                                <img src="<?php echo $contractsInformation[$fill]; ?>" alt="<?php echo $contractsInformation[$fill]; ?>">
+                                                <div class="modal-body"> 
+                                                <img src="<?php echo $contractsInformation[$fill]; ?>" class="img-fluid" alt="<?php echo $fillFr; ?>">
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"> Fermer </button>
@@ -51,7 +51,7 @@
                                         </td>
                                         <td>
                                             <a href="http://localhost/Afev/index.php?url=/approveFile&fileName=<?php echo $fill; ?>&id_user=<?php echo $contractsInformation['id_user']; ?>"> <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Approuver </a> </br>
-                                            <a href="http://localhost/Afev/index.php?url=/desapproveFile&fileName=<?php echo $fill; ?>&id_user=<?php echo $contractsInformation['id_user']; ?>"> <i class="fa fa-trash-o" aria-hidden="true"></i> Désaprouver </a>
+                                            <a href="http://localhost/Afev/index.php?url=/desapproveFile&&fileLocation=<?php echo $contractsInformation[$fill]; ?>&fileName=<?php echo $fill; ?>&id_user=<?php echo $contractsInformation['id_user']; ?>"> <i class="fa fa-trash-o" aria-hidden="true"></i> Désaprouver </a>
                                         </td>
                                     </tr>
                             <?php
@@ -79,50 +79,61 @@
                         <th>Dates du contrat </th>
                         <th> Etat du dossier </th>
                         <th> Pièces manquantes </th>
+                        <th> Anonymiser (cette action est irréversible) </th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     foreach ($allContractsInfos as $contractsInformation) {
-                        ?>
-                        <tr>
-                            <td> <?php echo htmlspecialchars($contractsInformation['firstname']); ?>  <?php echo htmlspecialchars($contractsInformation['lastname']); ?> </td>
-                            <td> 
-                                <form method="post" action="index.php?url=/admin_uploadDates">
-                                    <label for="date_start"> Date début  : <?php echo $contractsInformation['date_startFr']; ?>  </label> 
-                                    <input type="date" id="date_start" name="date_start"
-                                                min="2019-09-01" max="2020-12-31"> </br>
-                                    <label for="date_end">  Date de fin : <?php echo $contractsInformation['date_endFr']; ?>  </label>
-                                    <input type="date" id="date_end" name="date_end"
-                                                min="2019-09-01" max="2020-12-31"> </br>
-                                    <input type="submit" value="Modifier" />
-                                </form>
-                            </td>
-                            <td> 
+                        if ($contractsInformation['active'] != 'false') {
+                            ?>
+                            <tr>
+                                <td> <?php echo htmlspecialchars($contractsInformation['firstname']); ?>  <?php echo htmlspecialchars($contractsInformation['lastname']); ?> </td>
+                                <td> 
+                                    <form method="post" action="index.php?url=/admin_uploadDates">
+                                        <label for="date_start"> Date début  : <?php echo $contractsInformation['date_startFr']; ?>  </label> 
+                                        <input type="date" id="date_start" name="date_start"
+                                                    min="2019-09-01" max="2020-12-31"> </br>
+                                        <label for="date_end">  Date de fin : <?php echo $contractsInformation['date_endFr']; ?>  </label>
+                                        <input type="date" id="date_end" name="date_end"
+                                                    min="2019-09-01" max="2020-12-31"> </br>
+                                        <input type="submit" value="Modifier" />
+                                    </form>
+                                </td>
+                                <td> 
+                                    <?php
+                                    if ($folders->folderComplete($contractsInformation['id_user']) == true) {
+                                        ?>    
+                                        <p> Complet </p>
+                                        <a href="index.php?url=/downloadFolder&folderName=<?php echo htmlspecialchars($contractsInformation['folder_name']); ?>"> 
+                                            Télécharger le dossier
+                                        </a>
+                                    <?php
+                                    } else {
+                                        echo 'Incomplet';
+                                    } ?>
+                                </td>
+                                <td>
                                 <?php
-                                if ($folders->folderComplete($contractsInformation['id_user']) == true) {
-                                    ?>    
-                                    <p> Complet </p>
-                                    <a href="index.php?url=/downloadFolder&folderName=<?php echo htmlspecialchars($contractsInformation['folder_name']); ?>"> 
-                                        Télécharger le dossier
-                                    </a>
+                                    foreach ($files_list as $fill => $fillFr) {
+                                        if ($contractsInformation[$fill.'_valid'] == null) {
+                                            echo $fillFr; ?> </br> 
+                                        
                                 <?php
-                                } else {
-                                    echo 'Incomplet';
-                                } ?>
-                            </td>
-                            <td>
-                            <?php
-                                foreach ($files_list as $fill => $fillFr) {
-                                    if ($contractsInformation[$fill.'_valid'] == null) {
-                                        echo $fillFr; ?> </br> 
-                                    
-                            <?php
-                                    }
-                                } ?>
-                            </td>
-                        </tr>
-                    <?php
+                                        }
+                                    } ?>
+                                </td>
+                                <td> 
+                                    <p> Attention, cette action est irréversible et supprimera l'ensemble des données et fichiers du volontaire.</p>
+                                    <form method="post" action="index.php?url=/anonymizeUser"> 
+                                        <input type="hidden" name="user_id" value=<?php echo $contractsInformation['id_user']; ?>>
+                                        <input type="hidden" name="folder_name" value=<?php echo $contractsInformation['folder_name']; ?>>
+                                        <input type="submit"  class="btn btn-light" value="Anonymiser le dossier" />
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php
+                        }
                     } ?>
                 </tbody>
                 <tfoot>
@@ -131,6 +142,7 @@
                         <th>Dates du contrat </th>
                         <th> Etat du dossier </th>
                         <th> Pièces manquantes </th>
+                        <th> Anonymiser (cette action est irréversible) </th>
                     </tr>
                 </tfoot>
             </table>

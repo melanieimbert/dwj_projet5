@@ -25,14 +25,15 @@
   <div class="container">
 
     <?php
-    if (isset($message) && !is_null($message)) { ?>
+    if (isset($message) && !is_null($message)) {
+        ?>
         <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="alert alert-info">
-                    <?php echo $message; ?>
-                </div>
+          <div class="col-12">
+            <div class="<?php echo $type; ?>">
+              <?php echo $message; ?>
             </div>
-        </div> 
+          </div>
+        </div>  
     <?php
     }?>    
     <div class="container-fluid">

@@ -52,4 +52,16 @@ class UsersModel extends AbstractModel
 
         return $reqEmailValid;
     }
+
+    public function anonymizeUser($id_user)
+    {
+        $bdd = $this->datasConnect();
+        $reqEmailValid = $bdd->prepare('UPDATE users SET firstname=:anonymize, lastname=:anonymize, email=:anonymize, active="false" WHERE id=:id_user');
+        $reqEmailValid->execute(array(
+            'anonymize' => uniqid(),
+            'id_user' => $id_user,
+        ));
+
+        return $reqEmailValid;
+    }
 }
