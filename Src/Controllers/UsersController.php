@@ -28,7 +28,7 @@ class UsersController extends AbstractController
                         $mailManager = new Mail();
                         $mailManager->validationMail($_POST['email'], $_POST['validationKey']);
                     } else {
-                        throw new Exception();
+                        throw new Exception('Une erreur est survenue, vérifiez si vous n\'avez pas déjà un compte avec cette adresse e-mail ou contactez l\'administrateur.');
                     }
                 }
             } else {
@@ -77,10 +77,8 @@ class UsersController extends AbstractController
             if (password_verify($_POST['password'], $userData['password'])) {
                 if ($userData['active'] == 1) {
                     $_SESSION['id'] = $userData['id'];
-                    $msgFlash = 'Vous êtes maintenant connecté.';
-                    $type = 'alert alert-success';
                     $isAllowConnect = true;
-                    header('Location: index.php?url=/');
+                    header('Location: /');
                 } else {
                     $msgFlash = 'Votre adresse e-mail n\'a pas été validée.';
                     $type = 'alert alert-warning';
@@ -101,7 +99,10 @@ class UsersController extends AbstractController
     public function disconnection()
     {
         unset($_SESSION['id']);
-        header('Location: index.php?url=/');
+        $msgFlash = 'Vous êtes maintenant deconnecté.';
+        $type = 'alert alert-success';
+        $this->msgSession($msgFlash, $type);
+        header('Location: /');
     }
 
     public function gdpr()

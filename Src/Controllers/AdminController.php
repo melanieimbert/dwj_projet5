@@ -66,7 +66,7 @@ class AdminController extends AbstractController
                 $type = 'alert alert-danger';
             }
             $this->msgSession($msgFlash, $type);
-            header('Location: index.php?url=/admin');
+            header('Location: /admin');
         } else {
             throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
         }
@@ -93,8 +93,6 @@ class AdminController extends AbstractController
         if ($connectInformation->isAdminConnected()) {
             $manageUpload = new ManageUpload();
             $manageUpload->downloadZipFolder($_GET['folderName']);
-            $folder_location_delete = '../files_temp/dossier_volontaire.zip';
-            unlink($folder_location_delete);
         } else {
             throw new Exception('Uhmm... Vous n\'êtes pas autorisé à accéder à cette page.');
         }

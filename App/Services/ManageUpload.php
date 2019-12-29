@@ -17,10 +17,6 @@ class ManageUpload
         }
     }
 
-    public function fileRegister()
-    {
-    }
-
     public function downloadZipFolder($folderName)
     {
         $folderLocation = 'volunteers_files/'.$folderName;

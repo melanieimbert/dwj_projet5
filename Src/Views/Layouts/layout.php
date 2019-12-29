@@ -4,8 +4,6 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
         <title> Ma platforme en ligne - dossier administratif  - <?php echo $title; ?>   </title>
         <!-- Own web style -->
         <link rel="stylesheet" href="Asset/css/style.css"/>
@@ -27,25 +25,35 @@
             <!-- Sidebar -->
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php?url=/">
-                    <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                    </div>
-                    <div class="sidebar-brand-text mx-3"> Asso </div>
-                </a>
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
+                <li>
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                        <div class="sidebar-brand-icon rotate-n-15">
+                            <i class="fas fa-laugh-wink"></i>
+                        </div>
+                        <div class="sidebar-brand-text mx-3"> Asso </div>
+                    </a>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
+                </li>
+                
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.php?url=/">
+                    <a class="nav-link" href="/">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Menu</span></a>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
                 </li>
-                <!-- Divider -->
-                <hr class="sidebar-divider">
+                
+                 <!-- Heading -->
+                <li>
+                    <div class="sidebar-heading">
+                        Interface
+                    </div>
+                </li>
                 <!-- Nav Item - Homepage Collapse Menu --> 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="index.php?url=/">
+                    <a class="nav-link" href="/" >
                         <i class="fa fa-home"></i>
                         <span>Accueil</span>
                     </a>
@@ -56,7 +64,7 @@
                         ?>
                         <!-- Nav Item - UserPage Collapse Menu -->
                         <li class="nav-item">
-                            <a class="nav-link collapsed" href="index.php?url=/volunteer">
+                            <a class="nav-link" href="/volunteer">
                                 <i class="fa fa-fw fa-folder"></i>
                                 <span>Mon dossier </span>
                             </a>
@@ -66,7 +74,7 @@
                         ?> 
                             <!-- Nav Item - AdminPage Collapse Menu -->
                             <li class="nav-item">
-                                <a class="nav-link collapsed" href="index.php?url=/admin">
+                                <a class="nav-link" href="/admin">
                                     <i class="fa fa-fw fa-wrench"></i>
                                     <span>Administrateur</span>
                                 </a>
@@ -77,7 +85,7 @@
 
                         <!-- Nav Item - Disconnection Collapse Menu -->
                         <li class="nav-item">
-                            <a class="nav-link collapsed" href="index.php?url=/disconnection">
+                            <a class="nav-link" href="/disconnection">
                             <i class="fa fa-user-circle" aria-hidden="true"></i>
                             <span>Deconnexion</span>
                             </a>
@@ -87,35 +95,38 @@
                     ?>
                         <!-- Nav Item - Inscription Collapse Menu -->
                         <li class="nav-item">
-                            <a class="nav-link collapsed" href="index.php?url=/inscription">
+                            <a class="nav-link" href="/inscription">
                             <i class="fa fa-fw fa-table"></i>
                             <span>Inscription</span>
                             </a>
                         </li>
                         <!-- Nav Item - Connection Collapse Menu --> 
                         <li class="nav-item">
-                            <a class="nav-link collapsed" href="index.php?url=/connection">
+                            <a class="nav-link" href="/connection">
                             <i class="fa fa-user-circle" aria-hidden="true"></i>
                             <span>Connexion</span>
                             </a>
                         </li>
                     <?php
                 } ?>
-                <!-- Divider -->
-                <hr class="sidebar-divider d-none d-md-block">
-
-                 <!-- Sidebar Toggler (Sidebar) -->
-                <div class="text-center d-none d-md-inline">
-                    <button class="rounded-circle  border-0" id="sidebarToggle"> </button>
-                    
-                </div>
-    
-                <div id="weather" class="text-xs font-weight-bold mb-1 text-center d-none d-md-inline"> 
-                            <p id="weather_city_date"> </p>
-                            <img id="weather_icon"> </img>
-                            <p id="weather_condition"> </p>
-                            <p> Un temps parfait pour gérer son dossier, non ?! </p>
-                </div> 
+                <li class="text-center">
+                    <!-- Divider -->
+                    <hr class="sidebar-divider d-none d-md-block">
+                    <!-- Sidebar Toggler (Sidebar) -->
+                    <div class="text-center d-none d-md-inline">
+                        <button class="rounded-circle  border-0" id="sidebarToggle"> </button>
+                    </div>
+                </li>
+                <li class="text-center">
+                    <div id="weather" class="text-xs font-weight-bold mb-1 text-center d-none d-md-inline"> 
+                                <p id="weather_city_date"> </p>
+                                <img id="weather_icon" src="" alt="weather_image">
+                                <p id="weather_condition"> </p>
+                                <a style="text-decoration:none;font-size:0.75em;" title="Détail des prévisions pour Lyon"
+                                href="http://www.prevision-meteo.ch/meteo/localite/paris">Prévisions complètes pour Lyon</a>
+                                <p> Un temps parfait pour gérer son dossier, non ?! </p>
+                    </div> 
+                </li>
             </ul>
             <!-- End of Sidebar -->
 
@@ -125,6 +136,7 @@
                 <div id="content">
                     <!-- Topbar -->
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> La plateforme pour gérer votre dossier administratif -  <?php echo $title; ?></div>
                         </div>   
@@ -133,24 +145,26 @@
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <div class="d-sm-flex align-items-center justify-content-center mb-4">
-                        <h1 class="h2 mb-2 text-gray-800"> <?php echo  $title; ?> </h1>
-                    </div>
-
                     <div class="container-fluid">
-                    <?php
-                    if (isset($message) && !is_null($message)) {
-                        ?>
-                        <div class="row justify-content-center">
-                            <div class="col-12">
-                                <div class="<?php echo $type; ?>">
-                                    <?php echo $message; ?>
+                        <div class="d-sm-flex align-items-center justify-content-center mb-4">
+                            <h1 class="h2 mb-2 text-gray-800"> <?php echo  $title; ?> </h1>
+                        </div>
+
+                        <div class="container-fluid">
+                        <?php
+                        if (isset($message) && !is_null($message)) {
+                            ?>
+                            <div class="row justify-content-center">
+                                <div class="col-12">
+                                    <div class="<?php echo $type; ?>">
+                                        <?php echo $message; ?>
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
-                    <?php
-                    }?> 
-                        <?php echo $content; ?>
+                            </div> 
+                        <?php
+                        }?> 
+                            <?php echo $content; ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -167,7 +181,7 @@
         <!-- Core plugin JavaScript-->
         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- CDN plugin dataTables and option -->
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script charset="utf-8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
         <!-- own js script -->
         <script src="Asset/js/classes/Ajax.js"></script>
         <script src="Asset/js/classes/SlidesShow.js"></script>

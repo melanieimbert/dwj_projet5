@@ -10,9 +10,15 @@ class Router
     private $routes = array();
     private $namedRoutes = array();
 
-    public function __construct($url)
+    public function add($path, $callable, $name, $method)
     {
-        $this->url = $url;
+        $route = new Route($path, $callable);
+        $this->routes[$method][] = $route;
+        if ($name) {
+            $this->namedRoutes[$name] = $route;
+        }
+
+        return $route;
     }
 
     public function get($path, $callable, $name = null)
@@ -25,24 +31,13 @@ class Router
         return $this->add($path, $callable, $name, 'POST');
     }
 
-    public function add($path, $callable, $name, $method)
-    {
-        $route = new Route($path, $callable);
-        $this->routes[$method][] = $route;
-        if ($name) {
-            $this->namedRoutes[$name] = $route;
-        }
-
-        return $route;
-    }
-
-    public function run()
+    public function run($url)
     {
         if (!isset($this->routes[$_SERVER['REQUEST_METHOD']])) {
             throw new Exception('REQUEST_METHOD n\'existe pas');
         }
         foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
-            if ($route->match($this->url)) {
+            if ($route->match($url)) {
                 return $route->call();
             }
         }

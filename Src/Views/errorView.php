@@ -4,7 +4,7 @@
  <div class="text-center">
     
     <p class="lead text-gray-800 mb-5"> <?php echo $error; ?> </p>
-    <img id="error_img" src="Asset/images/lost_error.jpg" alt="someone_lost">
+    <img id="error_img" src="Asset/images/error.jpg" alt="someone_lost">
     <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
     <?php
     if (!empty($_SERVER['HTTP_REFERER'])) {

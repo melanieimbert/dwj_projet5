@@ -19,7 +19,7 @@
                     <?php
                     } else {
                         $validationKey = uniqid(); ?>
-                        <form method="post" action="index.php?url=/inscription" class="user">
+                        <form method="post" action="/inscription" class="user">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user" name="firstname" id="firstName" placeholder="Nom">
@@ -41,9 +41,9 @@
                             </div>
                             <div class="form-group row">
                                 <div class="custom-control custom-checkbox small">
-                                    <input type="checkbox" checked="checked" name="gdpr" value="true">  
+                                    <input type="checkbox" id="gdpr" checked="checked" name="gdpr" value="true">  
                                     <label for="gdpr"> 
-                                        J'accepte la <a href="index.php?url=/gdpr"> politique de confidentialité et de protection des données personnelles </a>.</br> 
+                                        J'accepte la <a href="/gdpr"> politique de confidentialité et de protection des données personnelles </a>.<br> 
                                     </label>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="index.php?url=/connection"> Vous avez déjà un compte ? Connectez-vous ! </a>
+                            <a class="small" href="/connection"> Vous avez déjà un compte ? Connectez-vous ! </a>
                         </div>
                     <?php
                     } ?>

@@ -25,9 +25,9 @@
                             <?php
                             } else {
                                 ?>
-                            <form class="user" method="post" action="index.php?url=/connection">
+                            <form class="user" method="post" action="/connection">
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" name="email" id="email" aria-describedby="emailHelp" placeholder="Adresse e-mail">
+                                    <input type="email" class="form-control form-control-user" name="email" id="email" placeholder="Adresse e-mail">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Mot de passe">
@@ -37,7 +37,7 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="index.php?url=/inscription"> Pas encore inscrit ? Créer un compte !</a>
+                                <a class="small" href="/inscription"> Pas encore inscrit ? Créer un compte !</a>
                             </div>
                             <?php
                             } ?>

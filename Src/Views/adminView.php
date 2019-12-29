@@ -36,11 +36,11 @@
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel"> <?php echo $fillFr; ?>  </h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
+                                                        <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body"> 
-                                                <img src="<?php echo $contractsInformation[$fill]; ?>" class="img-fluid" alt="<?php echo $fillFr; ?>">
+                                                    <img src="Public/<?php $contractsInformation[$fill]; ?>" class="img-fluid" alt="fichier_à_modérer">
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"> Fermer </button>
@@ -50,8 +50,8 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="http://localhost/Afev/index.php?url=/approveFile&fileName=<?php echo $fill; ?>&id_user=<?php echo $contractsInformation['id_user']; ?>"> <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Approuver </a> </br>
-                                            <a href="http://localhost/Afev/index.php?url=/desapproveFile&&fileLocation=<?php echo $contractsInformation[$fill]; ?>&fileName=<?php echo $fill; ?>&id_user=<?php echo $contractsInformation['id_user']; ?>"> <i class="fa fa-trash-o" aria-hidden="true"></i> Désaprouver </a>
+                                            <a href="/approveFile&fileName=<?php echo $fill; ?>&id_user=<?php echo $contractsInformation['id_user']; ?>"> <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Approuver </a> </br>
+                                            <a href="/desapproveFile&fileName=<?php echo $fill; ?>&id_user=<?php echo $contractsInformation['id_user']; ?>&fileLocation=<?php echo $contractsInformation[$fill]; ?>"> <i class="fa fa-trash-o" aria-hidden="true"></i> Désaprouver </a>
                                         </td>
                                     </tr>
                             <?php
