@@ -1,4 +1,4 @@
-class Ajax { // Exécute un appel AJAX GET
+class Ajax { 
     constructor (url, callback) { // Prend en paramètres l'URL cible et la fonction callback appelée en cas de succès
         this.url=url;  
         this.callback=callback;

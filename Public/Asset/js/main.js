@@ -11,7 +11,7 @@ $(document).ready(() => {
     // Mise en place du Caroussel
     const images = ['Asset/images/slider1.jpg', 'Asset/images/slider2.jpg', 'Asset/images/slider3.jpg', 'Asset/images/slider4.jpg']; 
     let emplacement= $('#slidesShow');
-    new SlidesShow(images, 5000, emplacement);
+    new SlidesShow(images, 8000, emplacement);
 
     // mise en page dynamique tableau 
     $('#folders_state').DataTable({
@@ -31,7 +31,4 @@ $(document).ready(() => {
         }
     });
    
-
-
-
 });
